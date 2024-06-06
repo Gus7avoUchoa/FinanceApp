@@ -8,7 +8,6 @@ public class UpdateTransactionRequest : Request
     public long Id { get; set; }
         
     [Required(ErrorMessage = "Título inválido")]
-    [MaxLength(80, ErrorMessage = "Título deve ter no máximo {0} caracteres")]
     public string Title { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Tipo inválido")]
