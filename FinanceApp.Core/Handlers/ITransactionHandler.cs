@@ -1,4 +1,4 @@
-using System.Transactions;
+using FinanceApp.Core.Models;
 using FinanceApp.Core.Requests.Transactions;
 using FinanceApp.Core.Responses;
 

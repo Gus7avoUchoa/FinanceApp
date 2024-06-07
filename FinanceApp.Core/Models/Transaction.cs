@@ -11,7 +11,7 @@ public class Transaction
     public DateTime? PaidOrReceivedAt { get; set; }
     public ETransactionType Type { get; set; } = ETransactionType.Withdraw;
     
-    public int CategoryId { get; set; }
+    public long CategoryId { get; set; }
     public Category Category { get; set; } = null!;
     
     public string UserId { get; set; } = string.Empty;

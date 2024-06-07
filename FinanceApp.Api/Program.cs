@@ -1,15 +1,22 @@
-using Microsoft.EntityFrameworkCore;
-using FinanceApp.Api.Data;
+using FinanceApp.Api.Common.Api;
+using FinanceApp.Api.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
-const string connectionString = 
-    "Server=localhost,1433;Database=FinanceApp;User ID=sa;Password=S3nh4Sup3rDificil;Trusted_Connection=False; TrustServerCertificate=True;";
-
-builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
+builder.AddConfiguration();
+// builder.AddSecurity();
+builder.AddDataContext();
+builder.AddCorsOrigin();
+builder.AddDocumentation();
+builder.AddServices();
 
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
+if (app.Environment.IsDevelopment())
+    app.ConfigureDevEnvironment();
+
+app.UseCors(ApiConfiguration.CorsPolicyName);
+// app.UseSecurity();
+app.MapEndpoints();
 
 app.Run();
