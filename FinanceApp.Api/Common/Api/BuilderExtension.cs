@@ -11,8 +11,8 @@ namespace FinanceApp.Api.Common.Api
         public static void AddConfiguration(this WebApplicationBuilder builder)
         {
             ApiConfiguration.ConnectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
-            Configuration.BackendUrl = builder.Configuration.GetValue<string>("BackendUrl") ?? string.Empty;
-            Configuration.FrontendUrl = builder.Configuration.GetValue<string>("FrontendUrl") ?? string.Empty;
+            CoreConfiguration.BackendUrl = builder.Configuration.GetValue<string>("BackendUrl") ?? string.Empty;
+            CoreConfiguration.FrontendUrl = builder.Configuration.GetValue<string>("FrontendUrl") ?? string.Empty;
         }
 
         public static void AddDocumentation(this WebApplicationBuilder builder)
@@ -44,8 +44,8 @@ namespace FinanceApp.Api.Common.Api
             {
                 options.AddPolicy(ApiConfiguration.CorsPolicyName, 
                     policy => policy.WithOrigins([
-                                    Configuration.BackendUrl,
-                                    Configuration.FrontendUrl])
+                                    CoreConfiguration.BackendUrl,
+                                    CoreConfiguration.FrontendUrl])
                                 .AllowAnyMethod()
                                 .AllowAnyHeader()
                                 .AllowCredentials());

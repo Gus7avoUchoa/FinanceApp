@@ -6,7 +6,7 @@ public class PagedResponse<TData> : Response<TData>
 {
     public int CurrentPage { get; set; }
     public int TotalCount { get; set; }
-    public int PageSize { get; set; } = Configuration.DefaultPageSize;
+    public int PageSize { get; set; } = CoreConfiguration.DefaultPageSize;
     public int TotalPages => (int)Math.Ceiling(TotalCount / (double)PageSize);
 
     [JsonConstructor]
@@ -14,7 +14,7 @@ public class PagedResponse<TData> : Response<TData>
         TData? data,
         int totalCount,
         int currentPage = 1,
-        int pageSize = Configuration.DefaultPageSize) 
+        int pageSize = CoreConfiguration.DefaultPageSize) 
         : base(data)
     {
         // Data = data;
@@ -25,7 +25,7 @@ public class PagedResponse<TData> : Response<TData>
 
     public PagedResponse(
         TData? data,
-        int statusCode = Configuration.DefaultStatusCode,
+        int statusCode = CoreConfiguration.DefaultStatusCode,
         string? message = null)
         : base(data, statusCode, message)
     { }

@@ -89,7 +89,7 @@ public class CategoryHandler(AppDbContext context) : ICategoryHandler
         }
         catch
         {
-            return new Response<Category?>(null, 500, "Não foi possível buscar a categoria.");
+            return new Response<Category?>(null, 500, "Não foi possível obter a categoria.");
         }
     }
 
@@ -114,7 +114,7 @@ public class CategoryHandler(AppDbContext context) : ICategoryHandler
         }
         catch
         {
-            return new PagedResponse<List<Category>?>(null, 500, "Não foi possível buscar as categorias.");
+            return new PagedResponse<List<Category>?>(null, 500, "Não foi possível obter as categorias.");
         }
     }
 }

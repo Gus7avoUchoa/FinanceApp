@@ -108,7 +108,7 @@ public class TransactionHandler(AppDbContext context) : ITransactionHandler
         }
         catch
         {
-            return new Response<Transaction?>(null, 500, "Não foi possível buscar a transação.");
+            return new Response<Transaction?>(null, 500, "Não foi possível obter a transação.");
         }
     }
 

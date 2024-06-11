@@ -20,8 +20,8 @@ public class GetAllCategoryEndpoint : IEndpoint
 
     private static async Task<IResult> HandleAsync(
         ICategoryHandler handler,
-        [FromQuery] int pageNumber = Configuration.DefaultPageNumber,
-        [FromQuery] int pageSize = Configuration.DefaultPageSize)
+        [FromQuery] int pageNumber = CoreConfiguration.DefaultPageNumber,
+        [FromQuery] int pageSize = CoreConfiguration.DefaultPageSize)
     {
         var request = new GetAllCategoriesRequest
         {
