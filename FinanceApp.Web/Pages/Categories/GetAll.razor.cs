@@ -23,6 +23,9 @@ public partial class GetAllCategoriesPage : ComponentBase
     [Inject]
     public ISnackbar Snackbar { get; set; } = null!;
 
+    [Inject]
+    public IDialogService Dialog { get; set; } = null!;
+
     #endregion
 
     #region Overrides
@@ -37,6 +40,49 @@ public partial class GetAllCategoriesPage : ComponentBase
 
             if (request.IsSuccess)
                 Categories = request.Data ?? [];
+            else
+                Snackbar.Add(request.Message, Severity.Error);
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+    }
+
+    #endregion
+
+    #region Methods
+
+    public async Task OnDeleteClickedAsync(long id, string title)
+    {
+        var result = await Dialog.ShowMessageBox("ATENÇÃO",
+            $"Ao prosseguir a categoria {title} será removida. Deseja continuar?",
+            yesText: "Excluir",
+            cancelText: "Cancelar");
+
+        if (result is true)
+            await OnDeleteAsync(id, title);
+
+        StateHasChanged();
+    }
+
+    private async Task OnDeleteAsync(long id, string title)
+    {
+        IsBusy = true;
+
+        try
+        {
+            var request = await Handler.DeleteAsync(new DeleteCategoryRequest { Id = id });
+
+            if (request.IsSuccess)
+            {
+                Snackbar.Add(request.Message, Severity.Success);
+                Categories.RemoveAll(x => x.Id == id);
+            }
             else
                 Snackbar.Add(request.Message, Severity.Error);
         }
